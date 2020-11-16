@@ -86,6 +86,16 @@ void Copter::init_ardupilot()
     
     barometer.init();
 
+    // jslee_201116
+#if 1
+    celsius_1.init(THER_TYPE_K);
+    celsius_2.init(THER_TYPE_K);
+#else
+    // Original code
+    celsius_1.init(0); // K type
+    celsius_2.init(0); // K type
+#endif
+
     // setup telem slots with serial ports
     gcs().setup_uarts();
 

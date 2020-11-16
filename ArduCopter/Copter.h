@@ -67,6 +67,9 @@
 #include <AP_TempCalibration/AP_TempCalibration.h>
 #include <AC_AutoTune/AC_AutoTune.h>
 #include <AP_Common/AP_FWVersion.h>
+// jslee_201116
+#include <AP_TemperatureSensor/MCP9600.h>
+
 
 // Configuration
 #include "defines.h"
@@ -270,6 +273,10 @@ private:
     // flight modes convenience array
     AP_Int8 *flight_modes;
     const uint8_t num_flight_modes = 6;
+
+    // jslee_201116
+    MCP9600 celsius_1;
+    MCP9600 celsius_2;
 
     struct RangeFinderState {
         bool enabled:1;

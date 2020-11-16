@@ -615,7 +615,9 @@ Copter::Copter(void)
     rc_throttle_control_in_filter(1.0f),
     inertial_nav(ahrs),
     param_loader(var_info),
-    flightmode(&mode_stabilize)
+    flightmode(&mode_stabilize),
+    celsius_1(0x60),                // jslee_201116
+    celsius_2(0x67)                 // "
 {
     // init sensor error logging flags
     sensor_health.baro = true;
