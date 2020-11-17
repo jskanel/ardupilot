@@ -67,6 +67,9 @@
 #include <AP_TempCalibration/AP_TempCalibration.h>
 #include <AC_AutoTune/AC_AutoTune.h>
 #include <AP_Common/AP_FWVersion.h>
+//jslee_201117
+#include <AP_TemperatureSensor/PT100.h>
+
 
 // Configuration
 #include "defines.h"
@@ -270,6 +273,9 @@ private:
     // flight modes convenience array
     AP_Int8 *flight_modes;
     const uint8_t num_flight_modes = 6;
+
+    //jslee_201117
+    PT100 celsius;
 
     struct RangeFinderState {
         bool enabled:1;

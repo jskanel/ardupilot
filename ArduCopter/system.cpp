@@ -86,6 +86,9 @@ void Copter::init_ardupilot()
     
     barometer.init();
 
+    // jslee_201117
+    celsius.init();
+
     // setup telem slots with serial ports
     gcs().setup_uarts();
 

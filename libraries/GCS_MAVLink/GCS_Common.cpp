@@ -38,7 +38,8 @@
 #include <AP_VisualOdom/AP_VisualOdom.h>
 #include <AP_OpticalFlow/OpticalFlow.h>
 #include <AP_Baro/AP_Baro.h>
-
+// jslee_201117: Add
+#include <AP_TemperatureSensor/PT100.h>
 #include <stdio.h>
 
 #if HAL_RCINPUT_WITH_AP_RADIO
@@ -1650,6 +1651,10 @@ void GCS_MAVLINK::send_scaled_imu(uint8_t instance, void (*send_fn)(mavlink_chan
 }
 
 
+// jslee_201117: Add
+extern float gTemper_1;
+extern float gTemper_2;
+
 // send data for barometer and airspeed sensors instances.  In the
 // case that we run out of instances of one before the other we send
 // the relevant fields as 0.
@@ -1663,8 +1668,21 @@ void GCS_MAVLINK::send_scaled_pressure_instance(uint8_t instance, void (*send_fn
     float temperature = 0.0f;
     if (instance < barometer.num_instances()) {
         press_abs = barometer.get_pressure(instance) * 0.01f;
-        temperature = barometer.get_temperature(instance)*100;
         have_data = true;
+
+// jslee_201116
+#if 1
+		// Divide from instance
+		if(instance == 0)
+			temperature = gTemper_1;
+		else if(instance == 1)
+			temperature = gTemper_2;
+		else
+			temperature = barometer.get_temperature(instance)*100;
+#else
+		// Origin
+		temperature = barometer.get_temperature(instance)*100;
+#endif
     }
 
     float press_diff = 0; // pascal
